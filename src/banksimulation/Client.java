@@ -17,9 +17,9 @@ public class Client {
     
     protected String id;
     protected String name;
-    
     protected ArrayList<Account> accounts;
-
+    
+////////////////////////////////////////////////////////
 // Στατικές μέθοδοι για τον έλεγχο της κλάσσης Client
     public static void main(String[] args) {
         ArrayList<Client> clients = generateRandomClients(50);
@@ -64,17 +64,25 @@ public class Client {
         return c.getTimeInMillis();
     }
  //   Τέλος στατικών μεθόδων
-    
+ /////////////////////////////////////////////////////////  
     
  // Constructors
     
     public Client() {
+        setId(Client.generateNextId());
         accounts = new ArrayList<Account>();
     }
 
+    public Client(String name){
+        setId(Client.generateNextId());
+        setName(name);
+        accounts = new ArrayList<Account>();
+    }
+    
     public Client(String id, String name) {
         setId(id);
         setName(name);
+        accounts = new ArrayList<Account>();
     }
 
     public String getId() {

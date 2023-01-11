@@ -28,11 +28,48 @@ public abstract class Account {
     protected ArrayList<Client> owners;
     protected ArrayList<Transaction> transactions;
     protected double balance;
-    protected int rate;
+    protected double rate;
     
     public Account() {
         
     }
+    
+    // Getters Setters
+
+    public static int getNextAccountNumber() {
+        return nextAccountNumber;
+    }
+
+    public static void setNextAccountNumber(int nextAccountNumber) {
+        Account.nextAccountNumber = nextAccountNumber;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
+    
+    
+    
     
     // Behavior methods
     
