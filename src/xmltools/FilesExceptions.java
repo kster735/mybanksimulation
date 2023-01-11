@@ -7,7 +7,6 @@ package xmltools;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,24 +24,26 @@ public class FilesExceptions {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Person takis = new Person("Makis", "Makis", 78);
-        Person lakis = new Person("Lakis", "Lakis", 56);
-        ArrayList<Person> persons = new ArrayList<>();
-        persons.add(takis);
-        persons.add(lakis);
-        
-        File f = new File("Persons.xml");
-        
-        try {
-            writePersonsToXML(f, persons);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+//        Person takis = new Person("Makis", "Makis", 78);
+//        Person lakis = new Person("Lakis", "Lakis", 56);
+//        ArrayList<Person> persons = new ArrayList<>();
+//        persons.add(takis);
+//        persons.add(lakis);
+//        
+//        File f = new File("Persons.xml");
+//        
+//        try {
+//            writePersonsToXML(f, persons);
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
 
+        Hashtable<String, Hashtable<String, String>> myobjects = new Hashtable<String, Hashtable<String, String>>();
         
+
         try {
             Scanner fis = new Scanner(new FileInputStream("Persons.xml")); 
-            readObjectsFromXML(fis);
+            myobjects = readObjectsFromXML(fis);
             fis.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -52,6 +53,8 @@ public class FilesExceptions {
 //        for (Person p: persons){
 //            System.out.println(p.getFirstName() + " "+ p.getLastName() + " " + p.getAge() );
 //        }
+
+        System.out.println(myobjects);
     }
     
     public static void writePersonsToXML(File f, ArrayList<Person> persons) throws IOException {
@@ -66,8 +69,10 @@ public class FilesExceptions {
     
     public static Hashtable<String, Hashtable<String, String>> readObjectsFromXML(Scanner fis){
         String line, content, openningTag, closingTag, text, objectType, element;
-        Hashtable<String, Hashtable<String, String>> objects = new Hashtable<>();
-        //ArrayList<Object> objects=null;
+        Hashtable<String, Hashtable<String, String>> objects = new Hashtable<String, Hashtable<String, String>>();
+        Hashtable<String, String> tempObject = new Hashtable<String, String>();
+
+        int objectCounter=0;
         
         while (fis.hasNextLine()){
             boolean hasText = false;
@@ -82,8 +87,9 @@ public class FilesExceptions {
             // if line starts with closing tag
             if (line.startsWith("</")){
                 closingTag = line;
-                objectType = closingTag.substring(2, closingTag.length() - 1);
-                System.out.println("ClosingTag: " + closingTag);
+                objectType = closingTag.substring(2, closingTag.length() - 1) + objectCounter++;
+
+                objects.put(objectType, tempObject);
                 continue;
             }
                 
@@ -98,14 +104,14 @@ public class FilesExceptions {
             int j = content.indexOf("</");
             if (j !=-1) {                
                 text = content.substring(0,j);
-                if (!text.isBlank())
-                    hasText = true;
+
                 closingTag = content.substring(j);
                 element = openningTag.substring(2,openningTag.length()-1);
-                System.out.println("Openning Tag: " + openningTag + "\n\tText: " + text + "\nClosingTag:" + closingTag);
-            } else {
-                System.out.println("Openning Tag: " + openningTag);
-            } 
+                
+                tempObject.put(openningTag, text);
+                
+            }
+            
         }
         return objects;
     }
