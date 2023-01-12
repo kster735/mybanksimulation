@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Scanner;
 
@@ -64,6 +65,52 @@ public class FilesExceptions {
         }
         pwc.close();
     }
+    
+     public static HashMap<String, Person> readObjectsFromXML1(Scanner fis){
+         String line, content, openningTag, closingTag, text, objectType, element;
+        HashMap<String, Person> objects = new HashMap<String, Person>();
+        //Hashtable<String, String> tempObject = new Hashtable<String, String>();
+
+        // Counter is needed to store multiple objects of the same type
+        int objectCounter=0;
+        
+        while (fis.hasNextLine()){
+            boolean hasText = false;
+            // Store next line of xml to process
+            line = fis.nextLine().trim();
+            
+            // Don't do anything with xml heading
+            if (line.startsWith("<?")){
+                continue;
+            }
+            
+            // if line starts with closing tag store the object.
+            if (line.startsWith("</")){
+                closingTag = line;
+                objectType = closingTag.substring(2, closingTag.length() - 1) + objectCounter++;                
+                objects.put(objectType, null);
+//                tempObject.clear();
+                continue;
+            }
+                
+            // Find and store next openning tag and it's content and store them
+            int i = line.indexOf(">");
+            openningTag = line.substring(0,i+1);
+            content = line.substring(i+1);
+            
+            // Find and store text if the current xml element has one.
+            int j = content.indexOf("</");
+            if (j !=-1) {                
+                text = content.substring(0,j);
+                element = openningTag.substring(1,openningTag.length()-1);
+                // build the the object by storing the field element and its value to a temp Hashtable
+//                tempObject.put(element, text);
+            }
+            
+        }
+        return objects;
+         
+     }
     
     public static Hashtable<String, Hashtable<String, String>> readObjectsFromXML(Scanner fis){
         String line, content, openningTag, closingTag, text, objectType, element;

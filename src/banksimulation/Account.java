@@ -75,9 +75,9 @@ public abstract class Account {
     
     public abstract void addOwner(Client owner);
     
-    public abstract void deposit() throws DepositException;
+    public abstract void deposit(double amount)throws DepositException;
     
-    public abstract void withdraw() throws WithdrawException;
+    public abstract void withdraw(double amount) throws WithdrawException;
     
     public abstract void connectAccount();
     

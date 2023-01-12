@@ -17,13 +17,16 @@ public abstract class CreditAccount extends Account {
     }
 
     @Override
-    public void deposit() throws DepositException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deposit(double amount) {
+        balance += amount;
     }
 
     @Override
-    public void withdraw() throws WithdrawException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void withdraw(double amount) throws WithdrawException {
+        if (amount > balance)
+            throw new WithdrawException();
+        else
+            balance -= amount;
     }
 
     @Override

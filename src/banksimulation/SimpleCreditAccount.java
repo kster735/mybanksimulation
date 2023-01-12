@@ -38,16 +38,7 @@ public class SimpleCreditAccount extends CreditAccount {
             this.owners.add(owner);
     }
 
-    @Override
-    public void deposit() {
-        
-    }
-
-    @Override
-    public void withdraw() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+   
     @Override
     public void connectAccount() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
