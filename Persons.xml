@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Person>
-	<firstName>Makis</firstName>
-	<lastName>Makis</lastName>
+	<firstName>Takis</firstName>
+	<lastName>Takis</lastName>
 	<age>78</age>
 </Person>
 <Person>
@@ -9,3 +9,13 @@
 	<lastName>Lakis</lastName>
 	<age>56</age>
 </Person>
+<Person>
+	<firstName>Makis</firstName>
+	<lastName>Makis</lastName>
+	<age>43</age>
+</Person>
+<Client>
+	<firstName>Stergios</firstName>
+	<lastName>Katsogiannis</lastName>
+	<accountNumber>4312 4578 8877 5568</accountNumber>
+</Client>
