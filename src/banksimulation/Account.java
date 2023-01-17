@@ -72,8 +72,10 @@ public abstract class Account {
     
     
     // Behavior methods
-    
-    public abstract void addOwner(Client owner);
+    public void addOwner(Client owner) {
+        if (Integer.parseInt(owner.getId()) <= Client.nextId && Integer.parseInt(owner.getId()) >=0 )
+            this.owners.add(owner);
+    }
     
     public abstract void deposit(double amount)throws DepositException;
     
@@ -86,4 +88,11 @@ public abstract class Account {
     public abstract void payInterest();
     
     public abstract void close() throws CloseAccountException;
+
+    @Override
+    public String toString() {
+        return "Account{" + "accountNumber=" + accountNumber + ", balance=" + balance + ", rate=" + rate + '}';
+    }
+    
+    
 }

@@ -16,7 +16,7 @@ class Transaction {
 //        dd.setTime(cal.getTimeInMillis());
 //        
 //        
-    private Calendar date;  // Ίσως το κάνω αντικείμενο Date
+    private int simulationDay;  // Ίσως το κάνω αντικείμενο Date
     private int transactionId;
     private Client  client; // Συναλλαγές που δε γίνονται από τον πελάτη της τράπεζας
                             // μπορούν να αφήνουν αυτό το πεδίο κενό, π.χ. κατάθεση τόκων
@@ -28,7 +28,7 @@ class Transaction {
 //    private String detailsOfTransaction; // I don't know.
     
     public Transaction(String description, Client client) {
-        this.setDate(Calendar.getInstance());
+//        this.setSimulationDay();
         this.setDescription(description);
         this.setClient(client);
         
@@ -37,15 +37,15 @@ class Transaction {
     /**
      * @return the date
      */
-    public Calendar getDate() {
-        return date;
+    public int getDate() {
+        return simulationDay;
     }
 
     /**
      * @param date the date to set
      */
-    public void setDate(Calendar date) {
-        this.date = date;
+    public void setDate(int simulationDay) {
+        this.simulationDay = simulationDay;
     }
 
     /**

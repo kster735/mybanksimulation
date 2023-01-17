@@ -1,8 +1,6 @@
 package banksimulation;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -13,7 +11,7 @@ public class BankSimulation {
 
     public static ArrayList<Client> clients;
     public static ArrayList<Account> accounts;
-
+    public static int simDay=0;
     /**
      * @param args the command line arguments
      */
@@ -25,37 +23,30 @@ public class BankSimulation {
         boolean run = true;
         while (run) {
             menu();
-            run = action(sc.nextInt());
+            run = actionSelect(sc.nextInt());
         }
     }
 
     public static void menu() {
-        System.out.println("**************************");
-        System.out.println("Λειτουργία Τράπεζας");
-        System.out.println("**************************");
-        System.out.println(" 1. Δημιουργία πελάτη");
-        System.out.println(" 2. Άνοιγμα λογαριασμού");
-        System.out.println(" 3. Διαχείριση κατόχων λογαριασμού");
-        System.out.println(" 4. Κατάθεση");
-        System.out.println(" 5. Ανάληψη");
+        System.out.println("****************************************");
+        System.out.println("Λειτουργία Τράπεζας -- Ημέρα " + simDay);
+        System.out.println("****************************************");
+        System.out.println(" 1. Δημιουργία πελάτη"); //
+        System.out.println(" 2. Άνοιγμα λογαριασμού"); 
+        System.out.println(" 3. Διαχείριση κατόχων λογαριασμού"); 
+        System.out.println(" 4. Κατάθεση"); 
+        System.out.println(" 5. Ανάληψη"); //
         System.out.println(" 6. Σύνδεση λογαριασμού ταμιευτηρίου σε προθεσμίας");
         System.out.println(" 7. Κλείσιμο λογαριασμού");
-        System.out.println(" 8. Προβολή πελατών");
-        System.out.println(" 9. Προβολή λογαριασμών");
-        System.out.println("10. Έξοδος");
+        System.out.println(" 8. Προβολή πελατών"); //
+        System.out.println(" 9. Προβολή λογαριασμών"); //
+        System.out.println("10. Έξοδος"); //
+        System.out.println("11. Χειροκίνητη Αύξηση ημερών"); //
         System.out.println("**************************");
-        System.out.println("");
-
-//        Calendar c = Calendar.getInstance();
-//        
-//        System.out.println(c.getTime());
-//        
-//        c.add(Calendar.DAY_OF_MONTH, 3);
-//        
-//        System.out.println(c.getTime());
+        System.out.println(""); 
     }
 
-    public static boolean action(int choice) {
+    public static boolean actionSelect(int choice) {
         boolean run = true;
         switch (choice) {
             case 1:
@@ -64,7 +55,7 @@ public class BankSimulation {
                 break;
             case 2:
                 // Άνοιγμα λογαριασμού
-                
+                actionOpenAccount();
                 break;
             case 3:
                 // Διαχείριση κατόχων λογαριασμού
@@ -74,6 +65,7 @@ public class BankSimulation {
                 break;
             case 5:
                 // Ανάληψη
+                actionWithdraw();
                 break;
             case 6:
                 // Σύνδεση λογαριασμού ταμιευτηρίου σε προθεσμίας
@@ -83,7 +75,6 @@ public class BankSimulation {
             case 8:
                 // Προβολή πελατών
                 showClients();
-                new Scanner(System.in).next();
                 break;
             case 9:
                 // Προβολή λογαριασμών
@@ -91,11 +82,17 @@ public class BankSimulation {
                 break;
             case 10:
                 // Προβολή λογαριασμών
+                System.out.println("Έξοδος!");
                 run = false;
+                break;
+            case 11:
+                advanceDaysManually();
                 break;
             default:
                 System.out.println("Not valid input");
         }
+        System.out.println("Πατήστε <Enter> για συνέχεια... ");
+        new Scanner(System.in).nextLine();
         return run;
     }
 
@@ -138,35 +135,143 @@ public class BankSimulation {
         }
     }
     
-    public static void actionDeposit() {
-        Client client; //new Client();
-        Account account; //new SimpleCreditAccount(client);
-        Scanner sc = new Scanner(System.in);
-        
-        System.out.println("---- Deposit  ----");
-        System.out.print("  - Client?  ");
-        
-        String inputClientID = sc.nextLine();
-        ArrayList<String> clientIDs = new ArrayList<>();
-        for (Client c : clients) {
-            clientIDs.add(c.id);
-        }
-        
-        int index=0;
-        if ( (index = clientIDs.indexOf(inputClientID)) != -1)
-            return;
-       
-        client = clients.get(index);
-      
-         // Εδώ με κάποιο τρόπο πρέπει να ρωτάω σε ποιο λογαριασμό θέλει να κάνει 
-         // κατάθεση. Πρώτα ίσως πρέπει να του δείξω όλους τους διαθέσιμους λογαριασμούς
-        
-//        
-//        try {
-//            account.deposit(100);
-//        } catch (DepositException ep) {
-//            System.out.println(ep.getMessage());
-//        }
+    public static void actionOpenAccount(){
+        System.out.println("");
     }
 
+    public static void actionDeposit() {
+        Client client = null; 
+        Account account = null; 
+        Scanner sc = new Scanner(System.in);
+        
+           
+        // Ποιος πελάτης θα κάνει κατάθεση
+        System.out.println("---- Κατάθεση ----");
+        
+        client = findClient();
+        
+        if ( client == null) {
+            System.out.println("Ο καταθέτης δεν είναι πελάτης της τράπεζας");
+        }
+        
+        // Λογαριασμός στον οποίο θα γίνει η κατάθεση
+        
+        account = findAccount();
+        
+      
+        if (account == null) {
+            System.out.println("Ο συγκεκριμένος λογαριασμός δεν υπάρχει");
+            return;
+        }
+        
+        
+        // Διαδιακασία κατάθεσης
+        
+        double amount=0.0;
+        boolean amountIsValid = false;
+        while (!amountIsValid) {
+            System.out.print("Ποσό κατάθεσης: ");
+            String strAmount = sc.nextLine();
+            try {
+                amount = Double.parseDouble(strAmount);
+                amountIsValid = true;
+            } catch (NumberFormatException ex) {
+                System.out.println("NumberFormatException: " + ex.getMessage());
+            }
+        }
+        
+        try {
+            account.deposit(amount);
+        } catch (DepositException ep) {
+            System.out.println(ep.getMessage());
+        }
+    }
+
+    public static void actionWithdraw() {
+        Client client = null; 
+        Account account = null; 
+        Scanner sc = new Scanner(System.in);
+        
+           
+        // Ποιος πελάτης θα κάνει κατάθεση
+        System.out.println("---- Ανάληψη ----");
+        
+        client = findClient();
+        
+        if ( client == null) {
+            System.out.println("Ο καταθέτης δεν είναι πελάτης της τράπεζας");
+        }
+        
+        // Λογαριασμός από τον  οποίο θα γίνει η ανάληψη
+        
+        account = findAccount();
+        
+      
+        if (account == null) {
+            System.out.println("Ο συγκεκριμένος λογαριασμός δεν υπάρχει");
+            return;
+        }
+        
+        
+        // Διαδιακασία κατάθεσης
+        
+        double amount=0.0;
+        boolean amountIsValid = false;
+        while (!amountIsValid) {
+            System.out.print("Ποσό ανάληψης: ");
+            String strAmount = sc.nextLine();
+            try {
+                amount = Double.parseDouble(strAmount);
+                amountIsValid = true;
+            } catch (NumberFormatException ex) {
+                System.out.println("NumberFormatException: " + ex.getMessage());
+            }
+        }
+        
+        try {
+            account.withdraw(amount);
+        } catch (WithdrawException ep) {
+            System.out.println(ep.getMessage());
+        }
+    }
+    
+    public static void advanceDaysManually() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Πόσες μέρες θέλετε να προχωρήσετε την προσομοίωση; ");
+        int x = sc.nextInt();
+        simDay += x;
+    }
+
+    public static Client findClient() {
+        Client client = null;
+        Scanner sc = new Scanner(System.in);
+        System.out.print(" -Ποιος πελάτης κάνει κατάθεση; ");
+        String inputClientID = sc.nextLine(); // Ίσως αργότερα χρειαστεί validation
+        
+        for (Client c: clients) {
+            if (inputClientID.equals(c.getId())) {
+                client = c;
+                break;
+            }
+        }
+        
+        return client;
+    }
+    
+    public static Account findAccount() {
+        Account account = null;
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Σε ποιο λογαριασμό θα κάνετε κατάθεση; ");
+        String inputAccountNumber = sc.nextLine();
+        
+        for (Account a: accounts) {
+            if (inputAccountNumber.equals(a.getAccountNumber())) {
+                account = a;
+                System.out.println(account.accountNumber);
+                break;
+            }
+        }
+        
+        return account;
+    }
 }

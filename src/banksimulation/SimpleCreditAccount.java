@@ -32,11 +32,7 @@ public class SimpleCreditAccount extends CreditAccount {
     
     
   
-    @Override
-    public void addOwner(Client owner) {
-        if (Integer.parseInt(owner.getId()) <= Client.nextId && Integer.parseInt(owner.getId()) >=0 )
-            this.owners.add(owner);
-    }
+    
 
    
     @Override
@@ -59,10 +55,6 @@ public class SimpleCreditAccount extends CreditAccount {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public String toString() {
-        return "SimpleCreditAccount{ " + this.getAccountNumber() + '}';
-    }
     
     
     

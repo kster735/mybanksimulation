@@ -12,11 +12,6 @@ public abstract class CreditAccount extends Account {
     private int interestPeriod; // in months
 
     @Override
-    public void addOwner(Client owner) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void deposit(double amount) {
         balance += amount;
     }
