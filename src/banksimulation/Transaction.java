@@ -10,42 +10,46 @@ import java.util.Date;
 class Transaction {
     // Οι συναλλαγές κάθε λογαριασμού θα πρέπει να αποθηκεύονται σε ένα ενιαίο αρχείο (δηλαδή
     // ένα αρχείο ανά λογαριασμό) το όνομα του οποίου θα περιέχει τον αριθμό του λογαριασμού.
-    
-//    Calendar cal = Calendar.getInstance();
-//        Date dd =new Date();
-//        dd.setTime(cal.getTimeInMillis());
-//        
-//        
-    private int simulationDay;  // Ίσως το κάνω αντικείμενο Date
+    private static int transactionIdCounter=0;
+
+    private int date;  // Ίσως το κάνω αντικείμενο Date
     private int transactionId;
     private Client  client; // Συναλλαγές που δε γίνονται από τον πελάτη της τράπεζας
                             // μπορούν να αφήνουν αυτό το πεδίο κενό, π.χ. κατάθεση τόκων
                             // από την τράπεζα ή έμβασμα από ιδιώτη που δεν είναι πελάτης της τράπεζας.
-    private double amount;
+    private double amount; // ίσως και αυτό κενό αν πρόκειται για άνοιγμα ή κλείσιμο λογαριασμού.
     private String description;
-    private int accountNumber;
-//    private String typeOfTransaction;  // e.g. open, close, deposit, withdraw, payInterest etc.
-//    private String detailsOfTransaction; // I don't know.
-    
-    public Transaction(String description, Client client) {
-//        this.setSimulationDay();
-        this.setDescription(description);
-        this.setClient(client);
-        
+    private String accountNumber;
+
+    public Transaction() {
+        this.nextTransactionId();
+        client = new Client();
     }
+
+
+    public Transaction(int date, int transactionId, Client client, String accountNumber, double amount) {
+        this.date = date;
+        this.transactionId = transactionId;
+        this.client = client;
+        this.amount = amount;
+        this.description = description;
+        this.accountNumber = accountNumber;
+    }
+    
+    
 
     /**
      * @return the date
      */
     public int getDate() {
-        return simulationDay;
+        return date;
     }
 
     /**
      * @param date the date to set
      */
-    public void setDate(int simulationDay) {
-        this.simulationDay = simulationDay;
+    public void setDate(int date) {
+        this.date = date;
     }
 
     /**
@@ -76,6 +80,7 @@ class Transaction {
         this.client = client;
     }
 
+ 
     /**
      * @return the amount
      */
@@ -107,17 +112,20 @@ class Transaction {
     /**
      * @return the accountNumber
      */
-    public int getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
     /**
      * @param accountNumber the accountNumber to set
      */
-    public void setAccountNumber(int accountNumber) {
+    public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
-    
-    
+
+    public void nextTransactionId(){
+        setTransactionId(Transaction.transactionIdCounter++);
+    }
+
     
 }

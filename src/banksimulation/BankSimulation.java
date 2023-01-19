@@ -9,15 +9,19 @@ import java.util.Scanner;
  */
 public class BankSimulation {
 
-    public static ArrayList<Client> clients;
-    public static ArrayList<Account> accounts;
+//    public static ArrayList<Client> clients;
+//    public static ArrayList<Account> accounts;
+    public static Bank bank;
+    
     public static int simDay=0;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        clients = new ArrayList<>();
-        accounts = new ArrayList<>();
+        bank = new Bank();
+        
+//        clients = new ArrayList<>();
+//        accounts = new ArrayList<>();
 
         Scanner sc = new Scanner(System.in);
         boolean run = true;
@@ -119,18 +123,18 @@ public class BankSimulation {
         
         Account account = new SimpleCreditAccount(owner);
         account.setBalance(amount);
-        clients.add(owner);
-        accounts.add(account);
+        bank.getClients().add(owner);
+        bank.getAccounts().add(account);
     }
 
     public static void showClients() {
-        for (Client client : clients) {
+        for (Client client : bank.getClients()) {
             System.out.println(client.toString());
         }
     }
 
     public static void showAccounts() {
-        for (Account account : accounts) {
+        for (Account account : bank.getAccounts()) {
             System.out.println(account.toString());
         }
     }
@@ -199,19 +203,24 @@ public class BankSimulation {
         client = findClient();
         
         if ( client == null) {
-            System.out.println("Ο καταθέτης δεν είναι πελάτης της τράπεζας");
+            System.out.println("Δεν είστε πελάτης της τράπεζας");
+            return;
         }
+        
         
         // Λογαριασμός από τον  οποίο θα γίνει η ανάληψη
         
         account = findAccount();
-        
       
         if (account == null) {
             System.out.println("Ο συγκεκριμένος λογαριασμός δεν υπάρχει");
             return;
         }
         
+        if (!account.owners.contains(client)) {
+            System.out.println("Δεν έχετε δικαίωμα συναλλαγών στο συγκεκριμένο λογαριασμό.");
+            return;
+        }
         
         // Διαδιακασία κατάθεσης
         
@@ -245,10 +254,10 @@ public class BankSimulation {
     public static Client findClient() {
         Client client = null;
         Scanner sc = new Scanner(System.in);
-        System.out.print(" -Ποιος πελάτης κάνει κατάθεση; ");
+        System.out.print(" -Ποιος πελάτης κάνει τη συναλλαγή; ");
         String inputClientID = sc.nextLine(); // Ίσως αργότερα χρειαστεί validation
         
-        for (Client c: clients) {
+        for (Client c: bank.getClients()) {
             if (inputClientID.equals(c.getId())) {
                 client = c;
                 break;
@@ -261,10 +270,10 @@ public class BankSimulation {
     public static Account findAccount() {
         Account account = null;
         Scanner sc = new Scanner(System.in);
-        System.out.print("Σε ποιο λογαριασμό θα κάνετε κατάθεση; ");
+        System.out.print("Δώστε αριθμό λογαριασμού για τη συναλλαγή: ");
         String inputAccountNumber = sc.nextLine();
         
-        for (Account a: accounts) {
+        for (Account a: bank.getAccounts()) {
             if (inputAccountNumber.equals(a.getAccountNumber())) {
                 account = a;
                 System.out.println(account.accountNumber);

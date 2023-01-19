@@ -66,9 +66,9 @@ public class FilesExceptions {
         pwc.close();
     }
     
-     public static HashMap<String, Person> readObjectsFromXML1(Scanner fis){
-         String line, content, openningTag, closingTag, text, objectType, element;
-        HashMap<String, Person> objects = new HashMap<String, Person>();
+     public static HashMap<String, Object> readObjectsFromXML_withmap(Scanner fis){
+        String line, content, openningTag, closingTag, text, objectType, element;
+        HashMap<String, Object> objects = new HashMap<String, Object>();
         //Hashtable<String, String> tempObject = new Hashtable<String, String>();
 
         // Counter is needed to store multiple objects of the same type
@@ -89,7 +89,6 @@ public class FilesExceptions {
                 closingTag = line;
                 objectType = closingTag.substring(2, closingTag.length() - 1) + objectCounter++;                
                 objects.put(objectType, null);
-//                tempObject.clear();
                 continue;
             }
                 
