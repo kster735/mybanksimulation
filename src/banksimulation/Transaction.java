@@ -12,8 +12,8 @@ class Transaction {
     // ένα αρχείο ανά λογαριασμό) το όνομα του οποίου θα περιέχει τον αριθμό του λογαριασμού.
     private static int transactionIdCounter=0;
 
-    private int date;  // Ίσως το κάνω αντικείμενο Date
     private int transactionId;
+    private int date;  // Ίσως το κάνω αντικείμενο Date
     private Client  client; // Συναλλαγές που δε γίνονται από τον πελάτη της τράπεζας
                             // μπορούν να αφήνουν αυτό το πεδίο κενό, π.χ. κατάθεση τόκων
                             // από την τράπεζα ή έμβασμα από ιδιώτη που δεν είναι πελάτης της τράπεζας.
@@ -26,18 +26,25 @@ class Transaction {
         client = new Client();
     }
 
-
-    public Transaction(int date, int transactionId, Client client, String accountNumber, double amount) {
-        this.date = date;
+    public Transaction(int date ,Client client, String accountNumber, double amount, String description) {
         this.transactionId = transactionId;
+        this.date = date;
         this.client = client;
+        this.accountNumber = accountNumber;
         this.amount = amount;
         this.description = description;
+    }
+
+    public Transaction(int transactionId, int date ,Client client, String accountNumber, double amount, String description) {
+        this.transactionId = transactionId;
+        this.date = date;
+        this.client = client;
         this.accountNumber = accountNumber;
+        this.amount = amount;
+        this.description = description;
     }
     
     
-
     /**
      * @return the date
      */
@@ -125,6 +132,18 @@ class Transaction {
 
     public void nextTransactionId(){
         setTransactionId(Transaction.transactionIdCounter++);
+    }
+
+    @Override
+    public String toString() {
+        String transactionRecord = "<" + this.transactionId + ">\n";
+        transactionRecord += "  <Date>" + this.date + "</Date>\n";       
+        transactionRecord += "  <Client>" + this.client + "</Client>\n";
+        transactionRecord += "  <AccountNumber>" + this.accountNumber + "</AccountNumber>\n";
+        transactionRecord += "  <Amount>" + this.amount + "</Amount>\n";
+        transactionRecord += "  <Description>" + this.amount + "</Description>\n";
+        transactionRecord += "</" + this.transactionId + ">";
+        return transactionRecord;
     }
 
     

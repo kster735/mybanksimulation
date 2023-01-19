@@ -111,9 +111,15 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" + "id=" + id + ", name=" + name + ", accounts=" + accounts + '}';
+        String clientRecord = "<" + this.getId() + ">\n";
+        clientRecord += "   <Name>" + this.getName() + "</Name>\n"; 
+        
+        for (Account account: this.accounts) {
+            clientRecord += "   <Account>" + account.getAccountNumber() + "</Account>\n";
+        }
+        
+        clientRecord += "</" + this.getId() + ">";
+        return clientRecord;
     }
-
-    
     
 }

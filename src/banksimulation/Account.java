@@ -23,7 +23,6 @@ public abstract class Account {
     // όχι στη λίστα
     
     protected static int nextAccountNumber;
-    
     protected String accountNumber; // μοναδικός αριθμός λογαριασμού
     protected ArrayList<Client> owners;
     protected ArrayList<Transaction> transactions;
@@ -91,7 +90,17 @@ public abstract class Account {
 
     @Override
     public String toString() {
-        return "Account{" + "accountNumber=" + accountNumber + ", balance=" + balance + ", rate=" + rate + '}';
+        String accountRecord = "<" + this.accountNumber + ">\n";
+        
+        for (Client owner: this.owners) {
+            accountRecord += "  <Client>" + owner.getId() + "</Client>\n";
+        }
+        
+        accountRecord += "  <balance>" + this.balance + "</balance>\n";
+        accountRecord += "  <rate>" + this.rate + "</rate>\n";
+        
+        accountRecord += "</" + this.accountNumber + ">";
+        return accountRecord;
     }
     
     

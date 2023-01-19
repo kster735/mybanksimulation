@@ -123,8 +123,11 @@ public class BankSimulation {
         
         Account account = new SimpleCreditAccount(owner);
         account.setBalance(amount);
+        Transaction newClientTransaction = new Transaction(simDay, owner, account.getAccountNumber(), amount, "Νέος πελάτης, άνοιγμα λογαριασμού και κατάθεση... ");
+        account.transactions.add(newClientTransaction);
+
         bank.getClients().add(owner);
-        bank.getAccounts().add(account);
+        bank.getAccounts().add(account);        
     }
 
     public static void showClients() {
@@ -186,6 +189,8 @@ public class BankSimulation {
         
         try {
             account.deposit(amount);
+            Transaction deposit = new Transaction(simDay, client, account.getAccountNumber(), amount, "Κατάθεση... ");
+            account.transactions.add(deposit);
         } catch (DepositException ep) {
             System.out.println(ep.getMessage());
         }
@@ -197,7 +202,7 @@ public class BankSimulation {
         Scanner sc = new Scanner(System.in);
         
            
-        // Ποιος πελάτης θα κάνει κατάθεση
+        // Ποιος πελάτης θα κάνει ανάληψη
         System.out.println("---- Ανάληψη ----");
         
         client = findClient();
@@ -239,6 +244,8 @@ public class BankSimulation {
         
         try {
             account.withdraw(amount);
+            Transaction withdraw = new Transaction(simDay, client, account.getAccountNumber(), amount, "Ανάληψη... ");
+            account.transactions.add(withdraw);
         } catch (WithdrawException ep) {
             System.out.println(ep.getMessage());
         }
