@@ -10,6 +10,10 @@ package banksimulation;
  */
 public class SuperCreditAccount extends CreditAccount {
 
+    public SuperCreditAccount(Client owner) {
+        super(owner);
+    }
+
     @Override
     public void addOwner(Client owner) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

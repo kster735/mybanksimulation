@@ -1,7 +1,12 @@
 package banksimulation;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import xmltools.XMLObjectsParse;
 
 /**
  *
@@ -59,10 +64,15 @@ public class BankSimulation {
                 break;
             case 2:
                 // Άνοιγμα λογαριασμού
+                // Εδώ θα μπορώ να ανοίξω νέο λογαριασμό που θα πρέπει να τον
+                // αναθέσω σε έναν υπάρχων πελάτη.
                 actionOpenAccount();
                 break;
             case 3:
                 // Διαχείριση κατόχων λογαριασμού
+                // Εδώ δηλαδή θα μπορώ να 
+                // 1. Προσθέσω υπάρχων κάτοχο σε υπάρχων λογαριασμό
+                // 2. Να αφαιρέσω κάτοχο από λογαριασμό
             case 4:
                 // Κατάθεση
                 actionDeposit();
@@ -125,9 +135,19 @@ public class BankSimulation {
         account.setBalance(amount);
         Transaction newClientTransaction = new Transaction(simDay, owner, account.getAccountNumber(), amount, "Νέος πελάτης, άνοιγμα λογαριασμού και κατάθεση... ");
         account.transactions.add(newClientTransaction);
-
+        
+        
         bank.getClients().add(owner);
-        bank.getAccounts().add(account);        
+        bank.getAccounts().add(account); 
+
+        String transactionFileName = "account_" + account.getAccountNumber() + "_transactions"+ ".xml";
+       
+        try {
+            XMLObjectsParse.writeObjectsToXML(new File(transactionFileName), account.transactions);
+        } catch (IOException ex) {
+            Logger.getLogger(BankSimulation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+               
     }
 
     public static void showClients() {
@@ -194,6 +214,18 @@ public class BankSimulation {
         } catch (DepositException ep) {
             System.out.println(ep.getMessage());
         }
+        
+        
+        
+        
+        String transactionFileName = "account_" + account.getAccountNumber() + "_transactions"+ ".xml";
+       
+        try {
+            XMLObjectsParse.writeObjectsToXML(new File(transactionFileName), account.transactions);
+        } catch (IOException ex) {
+            Logger.getLogger(BankSimulation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     public static void actionWithdraw() {
@@ -249,6 +281,16 @@ public class BankSimulation {
         } catch (WithdrawException ep) {
             System.out.println(ep.getMessage());
         }
+        
+        
+        String transactionFileName = "account_" + account.getAccountNumber() + "_transactions"+ ".xml";
+       
+        try {
+            XMLObjectsParse.writeObjectsToXML(new File(transactionFileName), account.transactions);
+        } catch (IOException ex) {
+            Logger.getLogger(BankSimulation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     public static void advanceDaysManually() {

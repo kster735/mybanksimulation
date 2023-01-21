@@ -4,12 +4,21 @@
  */
 package banksimulation;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author stery
  */
 public abstract class CreditAccount extends Account {
     private int interestPeriod; // in months
+    
+    public CreditAccount(Client owner) {
+        setAccountNumber("" + SimpleCreditAccount.nextAccountNumber++);
+        this.owners = new ArrayList<Client>();
+        this.addOwner(owner);
+        owner.accounts.add(this);
+    }
 
     @Override
     public void deposit(double amount) {

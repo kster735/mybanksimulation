@@ -30,7 +30,8 @@ public abstract class Account {
     protected double rate;
     
     public Account() {
-        
+        owners = new ArrayList<>();
+        transactions = new ArrayList<>();
     }
     
     // Getters Setters

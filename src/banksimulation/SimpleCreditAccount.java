@@ -14,12 +14,10 @@ public class SimpleCreditAccount extends CreditAccount {
     private double maxWithdrawal;
     
     public SimpleCreditAccount(Client owner) {
+        super(owner);
         setMaxWithdrawal(1000.0);
         setRate(1);
-        setAccountNumber("" + SimpleCreditAccount.nextAccountNumber++);
-        this.owners = new ArrayList<Client>();
-        this.addOwner(owner);
-        owner.accounts.add(this);
+        
     }
 
     public double getMaxWithdrawal() {

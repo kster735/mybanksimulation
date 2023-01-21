@@ -27,7 +27,7 @@ class Transaction {
     }
 
     public Transaction(int date ,Client client, String accountNumber, double amount, String description) {
-        this.transactionId = transactionId;
+        this.nextTransactionId();
         this.date = date;
         this.client = client;
         this.accountNumber = accountNumber;
@@ -138,10 +138,10 @@ class Transaction {
     public String toString() {
         String transactionRecord = "<" + this.transactionId + ">\n";
         transactionRecord += "  <Date>" + this.date + "</Date>\n";       
-        transactionRecord += "  <Client>" + this.client + "</Client>\n";
+        transactionRecord += "  <Client>" + this.client.getName() + "</Client>\n";
         transactionRecord += "  <AccountNumber>" + this.accountNumber + "</AccountNumber>\n";
         transactionRecord += "  <Amount>" + this.amount + "</Amount>\n";
-        transactionRecord += "  <Description>" + this.amount + "</Description>\n";
+        transactionRecord += "  <Description>" + this.description + "</Description>\n";
         transactionRecord += "</" + this.transactionId + ">";
         return transactionRecord;
     }

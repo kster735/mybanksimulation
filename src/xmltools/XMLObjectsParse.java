@@ -19,7 +19,7 @@ import java.util.Scanner;
  *
  * @author E2
  */
-public class FilesExceptions {
+public class XMLObjectsParse {
 
     /**
      * @param args the command line arguments
@@ -56,12 +56,12 @@ public class FilesExceptions {
         System.out.println(myobjects);
     }
     
-    public static void writePersonsToXML(File f, ArrayList<Person> persons) throws IOException {
+    public static <T> void writeObjectsToXML(File f, ArrayList<T> objects) throws IOException {
         FileOutputStream fos = new FileOutputStream(f);
         PrintWriter pwc = new PrintWriter(fos);
         pwc.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        for (Person p : persons){
-           pwc.print(p.toString());
+        for (T o : objects){
+           pwc.print(o.toString());
         }
         pwc.close();
     }
