@@ -1,20 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<1>
-  <Date>0</Date>
-  <Client>eirini</Client>
+<4>
+  <Date>179</Date>
+  <Client>2</Client>
   <AccountNumber>1</AccountNumber>
-  <Amount>4785.0</Amount>
+  <Amount>456.0</Amount>
   <Description>Νέος πελάτης, άνοιγμα λογαριασμού και κατάθεση... </Description>
-</1><2>
-  <Date>0</Date>
-  <Client>stergios</Client>
-  <AccountNumber>1</AccountNumber>
-  <Amount>6.4764774E7</Amount>
-  <Description>Κατάθεση... </Description>
-</2><3>
-  <Date>0</Date>
-  <Client>eirini</Client>
-  <AccountNumber>1</AccountNumber>
-  <Amount>500.0</Amount>
-  <Description>Ανάληψη... </Description>
-</3>
+</4>

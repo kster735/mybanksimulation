@@ -2,7 +2,6 @@ package banksimulation;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -276,7 +275,7 @@ public class BankSimulation {
         
         try {
             account.withdraw(amount);
-            Transaction withdraw = new Transaction(simDay, client, account.getAccountNumber(), amount, "Ανάληψη... ");
+            Transaction withdraw = new Transaction(simDay, client, account.getAccountNumber(), amount * (-1.0), "Ανάληψη... ");
             account.transactions.add(withdraw);
         } catch (WithdrawException ep) {
             System.out.println(ep.getMessage());
@@ -298,6 +297,17 @@ public class BankSimulation {
         System.out.print("Πόσες μέρες θέλετε να προχωρήσετε την προσομοίωση; ");
         int x = sc.nextInt();
         simDay += x;
+        
+        checkInterests();
+    }
+    
+    public static void checkInterests() {
+        for (Account a: bank.getAccounts()) {
+            if (a.mustPayInterest(simDay)) {
+                a.payInterest(simDay); 
+                System.out.println("Payed Interest!");
+            }
+        }
     }
 
     public static Client findClient() {

@@ -31,12 +31,12 @@ public class ReserveAccount extends Account {
     }
 
     @Override
-    public void mustPayInterest() {
+    public Boolean mustPayInterest(int currentDate) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void payInterest() {
+    public void payInterest(int currentDate) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -44,5 +44,7 @@ public class ReserveAccount extends Account {
     public void close() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+   
     
 }

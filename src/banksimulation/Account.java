@@ -64,7 +64,7 @@ public abstract class Account {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(double rate) {
         this.rate = rate;
     }
     
@@ -83,9 +83,9 @@ public abstract class Account {
     
     public abstract void connectAccount();
     
-    public abstract void mustPayInterest();
+    public abstract Boolean mustPayInterest(int currentDate);
     
-    public abstract void payInterest();
+    public abstract void payInterest(int currentDate);
     
     public abstract void close() throws CloseAccountException;
 

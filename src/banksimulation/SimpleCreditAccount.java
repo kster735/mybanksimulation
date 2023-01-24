@@ -4,20 +4,19 @@
  */
 package banksimulation;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author stery
  */
 public class SimpleCreditAccount extends CreditAccount {
+
     private double maxWithdrawal;
-    
+
     public SimpleCreditAccount(Client owner) {
         super(owner);
         setMaxWithdrawal(1000.0);
-        setRate(1);
-        
+        setInterestPeriod(6);
+        setRate(0.01);
     }
 
     public double getMaxWithdrawal() {
@@ -27,33 +26,26 @@ public class SimpleCreditAccount extends CreditAccount {
     public void setMaxWithdrawal(double maxWithdrawal) {
         this.maxWithdrawal = maxWithdrawal;
     }
-    
-    
-  
-    
 
-   
+    @Override
+    public void withdraw(double amount) throws WithdrawException {
+        if (amount > balance || amount > maxWithdrawal) {
+            throw new WithdrawException();
+        } else {
+            balance -= amount;
+        }
+    }
+
     @Override
     public void connectAccount() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public void mustPayInterest() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
-    @Override
-    public void payInterest() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public void close() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    
-    
-    
 }

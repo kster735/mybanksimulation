@@ -137,12 +137,17 @@ class Transaction {
     @Override
     public String toString() {
         String transactionRecord = "<" + this.transactionId + ">\n";
-        transactionRecord += "  <Date>" + this.date + "</Date>\n";       
-        transactionRecord += "  <Client>" + this.client.getName() + "</Client>\n";
+        transactionRecord += "  <Date>" + this.date + "</Date>\n";
+        
+        if (this.client != null)
+            transactionRecord += "  <Client>" + this.client.getId() + "</Client>\n";
+        else
+            transactionRecord += "  <Client>" + "null" + "</Client>\n";
+        
         transactionRecord += "  <AccountNumber>" + this.accountNumber + "</AccountNumber>\n";
         transactionRecord += "  <Amount>" + this.amount + "</Amount>\n";
         transactionRecord += "  <Description>" + this.description + "</Description>\n";
-        transactionRecord += "</" + this.transactionId + ">";
+        transactionRecord += "</" + this.transactionId + ">\n";
         return transactionRecord;
     }
 

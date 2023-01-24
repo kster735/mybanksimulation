@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <0>
   <Date>0</Date>
-  <Client>stergios</Client>
+  <Client>1</Client>
   <AccountNumber>0</AccountNumber>
-  <Amount>124588.0</Amount>
+  <Amount>1000.0</Amount>
   <Description>Νέος πελάτης, άνοιγμα λογαριασμού και κατάθεση... </Description>
 </0>
+<1>
+  <Date>60</Date>
+  <Client>1</Client>
+  <AccountNumber>0</AccountNumber>
+  <Amount>1000.0</Amount>
+  <Description>Κατάθεση... </Description>
+</1>
+<2>
+  <Date>180</Date>
+  <Client>null</Client>
+  <AccountNumber>0</AccountNumber>
+  <Amount>8.333333333333334</Amount>
+  <Description>Πληρωμή τόκων</Description>
+</2>
